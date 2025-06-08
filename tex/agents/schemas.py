@@ -2,6 +2,7 @@ from typing import Annotated, Any, Dict, List
 
 from langchain_core.messages import AnyMessage
 from langgraph.graph import MessagesState, add_messages  # noqa
+from typing_extensions import TypedDict
 
 
 class FormInput(MessagesState):
@@ -20,3 +21,8 @@ class FormInput(MessagesState):
 
     messages: Annotated[List[AnyMessage], add_messages]
     forms: Dict[str, Dict[str, Dict[str, Any]]]
+    statments: Dict[str, Dict[str, Dict[str, Any]]]
+
+
+class ConfigSchema(TypedDict):
+    mode: str
