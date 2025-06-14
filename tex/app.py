@@ -26,15 +26,13 @@
 # asyncio.run(main())
 
 from tex.agents.form import FormAgent
-from tex.model import call_gemini_model
 from tex.tools import create_handoff_tool
 
 transfer_to_form1040 = create_handoff_tool(
     agent_name="form1040",
     description="Transfer to file form 1040.",
 )
-agent_obj = FoarmAgent(
-    model=call_gemini_model(),
-    tools=[transfer_to_form1040],
+agent_obj = FormAgent(
+    # tools=[transfer_to_form1040],
 )
 agent = agent_obj.get()

@@ -1,3 +1,5 @@
+from typing import List
+
 from langchain_core.runnables import RunnableConfig
 
 from tex.agents.schemas import FormInput
@@ -5,8 +7,12 @@ from tex.model import ModelFactory
 
 
 def call_model(
+    # state and config are two default runtime params.
     state: FormInput,
     config: RunnableConfig,
+    # Other static parameters
+    model_name: str,
+    tools: List[str] = [],
 ):
     """
     Follow below script to get specific on run (https://langchain-ai.github.io/langgraph/how-tos/graph-api/#add-runtime-configuration). # noqa
@@ -22,9 +28,11 @@ def call_model(
             return {"messages": [response]}
 
     """
-    messages = state["messages"]
-
     # Get model
-    model = ModelFactory.get(config["model"])
+    model = ModelFactory.get(model_name)
+    if len(tools) > 0:
+        model.bind_tools(tools)
+    # Invoke model
+    messages = state["messages"]
     response = model.invoke(messages)
     return {"messages": [response]}

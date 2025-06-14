@@ -17,7 +17,7 @@ class ModelFactory:
     def register(cls, name: str) -> Callable:
         def inner_wrapper(wrapped_class: Callable) -> Callable:
             if name in cls.registry:
-                logger.warning("Executor %s already exists. Will replace it", name)
+                logger.warning("Model %s already exists. Will replace it", name)  # noqa
             cls.registry[name] = wrapped_class
             return wrapped_class
 
@@ -25,8 +25,8 @@ class ModelFactory:
 
     @classmethod
     def get(cls, name: str) -> Callable:
-        assert name in cls.registery, f"Model {name} does not exist in."  # noqa
-        return cls.registery[name]
+        assert name in cls.registry, f"Model {name} does not exist in."  # noqa
+        return cls.registry[name]()
 
 
 @ModelFactory.register("gemini_chat")
