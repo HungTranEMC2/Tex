@@ -1,5 +1,5 @@
 import json
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 from tex.data.constants import DATA_PATH
 
@@ -7,7 +7,8 @@ from tex.data.constants import DATA_PATH
 def get_form_lines(
     year: int,
     form_name: str,
-) -> List[str, Any]:
+) -> Dict[str, Any]:
+
     with open(
         DATA_PATH.format(
             year=year,

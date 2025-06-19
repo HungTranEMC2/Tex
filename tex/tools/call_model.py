@@ -30,8 +30,10 @@ def call_model(
     """
     # Get model
     model = ModelFactory.get(model_name)
+
+    # Binding tools in run time
     if len(tools) > 0:
-        model.bind_tools(tools)
+        model = model.bind_tools(tools)
     # Invoke model
     messages = state["messages"]
     response = model.invoke(messages)
